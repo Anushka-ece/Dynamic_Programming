@@ -1,0 +1,20 @@
+//MIN COST CLIMBING STAIRS
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        //Bottom up Approach
+        int n=cost.size();
+        int dp[n];
+        
+        //Initialization for base cases
+        dp[0]=cost[0];
+        dp[1]=cost[1];
+        
+        //further traversal
+        for(int i=2;i<n;i++)
+        {
+            dp[i]=cost[i]+min(dp[i-1],dp[i-2]);//we will take minimum cost index either 1 or 2 steps prior
+        }
+        return min(dp[n-1],dp[n-2]);
+    }
+};
