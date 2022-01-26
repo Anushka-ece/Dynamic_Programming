@@ -1,0 +1,34 @@
+//Maximum Score from Performing Multiplication Operations
+class Solution {
+public:
+    
+    int solve(vector<int>& nums, vector<int>& multipliers,int l,int r,int index,vector<vector<int>>&dp)
+    {
+        int n=nums.size();
+        int m=multipliers.size();
+        //base condition
+        if((l>r)||(index>=m))
+            return 0;
+        
+        //memoization
+        if(dp[l][index]!=-1)//this shows that this has already been implemented
+        {
+return dp[l][index];
+        }
+        
+        int x=multipliers[index];//current value of multipliers
+        
+        //choices
+        return dp[l][index]=max(nums[l]*x+solve(nums,multipliers,l+1,r,index+1,dp),nums[r]*x+solve(nums,multipliers,l,r-1,index+1,dp));
+    }
+    
+    int maximumScore(vector<int>& nums, vector<int>& multipliers) {
+        int n=nums.size();
+        int m=multipliers.size();
+        int l=0;//left index of nums
+        int r=n-1;//right index of nums
+        int index=0;//pointer beginning from 0th index of multipliers
+        vector<vector<int>>dp(m+1,vector<int>(m+1,-1));// a dp is declared to memoize the values 
+        return solve(nums,multipliers,l,r,index,dp);
+    }
+};
